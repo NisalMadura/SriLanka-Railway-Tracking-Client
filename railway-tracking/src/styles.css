@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  .App {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .train-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .train-card h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .train-card p {
+    margin: 5px 0;
+  }
+  
+  .train-card .details {
+    margin-top: 10px;
+  }
+  
+  .train-card .details div {
+    margin-bottom: 5px;
+  }
+  
+  .train-card .details .label {
+    font-weight: bold;
+  }
+  
+  .train-card .details .value {
+    color: #555;
+  }
+  
