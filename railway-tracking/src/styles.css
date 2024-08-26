@@ -56,4 +56,34 @@ body {
   .train-card .details .value {
     color: #555;
   }
+
+  .train-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .arrow-icon {
+    font-size: 18px;
+  }
+  
+  .expanded-details {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .expanded-details div {
+    margin-bottom: 5px;
+  }
+  
+  .map-container {
+    margin-top: 10px;
+  }
+  .map-container {
+    margin-top: 10px;
+    height: 200px;
+    width: 100%;
+  }
   
