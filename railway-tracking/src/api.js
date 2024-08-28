@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3309';
+const API_BASE_URL = 'http://localhost:3003';
 
 export const getTrains = async () => {
   try {

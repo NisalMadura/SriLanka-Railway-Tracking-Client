@@ -16,10 +16,10 @@ function App() {
       setTrains(data);
       setFilteredTrains(data);
     };
-    
+
     fetchData();
 
-    // Set up real-time updates
+    // Set up real-time updates via Socket.IO
     socket.on('trainUpdate', (data) => {
       setTrains((prevTrains) => {
         const updatedTrains = prevTrains.map((train) =>
@@ -29,8 +29,15 @@ function App() {
       });
     });
 
+    // Auto-refresh every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 10000); 
+
+    
     return () => {
       socket.off('trainUpdate');
+      clearInterval(intervalId);
     };
   }, []);
 
@@ -44,10 +51,17 @@ function App() {
 
   return (
     <div className="App">
-      <SearchBar onSearch={handleSearch} />
-      {filteredTrains.map((train) => (
-        <TrainCard key={train.IOTid} train={train} />
-      ))}
+      <div className="navbar">
+        <div className="logo">CeylonRailView</div>
+        <SearchBar onSearch={handleSearch} />
+      </div>
+      
+      <div className="train-list">
+        {filteredTrains.map((train) => (
+          <TrainCard key={train.IOTid} train={train} />
+        ))}
+      </div>
+      
     </div>
   );
 }

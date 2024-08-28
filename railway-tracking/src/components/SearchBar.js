@@ -14,7 +14,7 @@ function SearchBar({ onSearch }) {
         type="text"
         value={query}
         onChange={handleChange}
-        placeholder="Search by Train Name or Trip No"
+        placeholder="Search by Train Name or Trin No"
       />
     </div>
   );
