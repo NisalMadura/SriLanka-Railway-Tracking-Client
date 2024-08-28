@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import io from 'socket.io-client';
-import Clock from './Clock'; // Assume Clock and Calendar components are created
+import Clock from './Clock'; 
 import Calendar from './Calendar';
-import L from 'leaflet'; // Import Leaflet for custom icons
+import L from 'leaflet';
 
 const SOCKET_URL = 'http://localhost:3003';
 const socket = io(SOCKET_URL);
 
+const trainIcon = new L.Icon({
+  iconUrl: '/images/train.png', 
+  iconSize: [25, 25], 
+  iconAnchor: [12, 24], 
+  popupAnchor: [0, -20] 
+});
+
 function TrainCard({ train }) {
   const [expanded, setExpanded] = useState(false);
   const [currentLocation, setCurrentLocation] = useState([train.Latitude, train.Longitude]);
-  const [status, setStatus] = useState(train.EngineStatus); // Default status
+  const [status, setStatus] = useState(train.EngineStatus); 
 
   const toggleExpand = () => {
     setExpanded(!expanded);
@@ -22,7 +29,7 @@ function TrainCard({ train }) {
     socket.on('train-update', (data) => {
       if (data.IOTid === train.IOTid) {
         setCurrentLocation([data.Latitude, data.Longitude]);
-        setStatus(data.EngineStatus.toLowerCase()); // Update status based on received data
+        setStatus(data.EngineStatus.toLowerCase()); 
       }
     });
 
@@ -31,19 +38,11 @@ function TrainCard({ train }) {
     };
   }, [train.IOTid]);
 
-  // Determine which status indicator should be active based on the current status
   const statusIndicators = {
     running: { green: true, yellow: false, red: false },
     stopped: { green: false, yellow: true, red: false },
     delayed: { green: false, yellow: false, red: true },
   }[status] || { green: false, yellow: false, red: false };
-
-  const trainIcon = new L.Icon({
-    iconUrl: '/images/train.png', // Replace with path to your train icon
-    iconSize: [25, 25], // Adjust size if needed
-    iconAnchor: [12, 24], // Adjust anchor if needed
-    popupAnchor: [0, -20], // Adjust popup anchor if needed
-  });
 
   return (
     <div className="train-card">
@@ -67,7 +66,7 @@ function TrainCard({ train }) {
           <div><span className="label">Arrival Time:</span> <span className="value">{train.ArrivalTime}</span></div>
           <div><span className="label">Train Type:</span> <span className="value">{train.TrainType || 'Passenger'}</span></div>
           <div className="map-container">
-            <MapContainer center={currentLocation} zoom={13} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
+            <MapContainer center={currentLocation} zoom={13} scrollWheelZoom={false} style={{ height: '300px', width: '100%' }}>
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

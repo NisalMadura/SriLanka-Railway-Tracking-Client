@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar } from 'antd';
-import 'antd/dist/reset.css'; // Import Ant Design CSS
+import 'antd/dist/reset.css'; 
 
 function AppCalendar() {
   return (

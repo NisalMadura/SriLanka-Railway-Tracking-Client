@@ -3,14 +3,12 @@ import { getTrains } from './api';
 import socket from './socket';
 import TrainCard from './components/TrainCard';
 import SearchBar from './components/SearchBar';
-import Clock from './components/Clock';
-import Calendar from './components/Calendar';
 import './styles.css';
 
 function App() {
   const [trains, setTrains] = useState([]);
   const [filteredTrains, setFilteredTrains] = useState([]);
-  
+
   useEffect(() => {
     // Fetch initial data
     const fetchData = async () => {
@@ -18,10 +16,10 @@ function App() {
       setTrains(data);
       setFilteredTrains(data);
     };
-    
+
     fetchData();
 
-    // Set up real-time updates
+    // Set up real-time updates via Socket.IO
     socket.on('trainUpdate', (data) => {
       setTrains((prevTrains) => {
         const updatedTrains = prevTrains.map((train) =>
@@ -31,8 +29,15 @@ function App() {
       });
     });
 
+    // Auto-refresh every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 10000); 
+
+    
     return () => {
       socket.off('trainUpdate');
+      clearInterval(intervalId);
     };
   }, []);
 
@@ -40,7 +45,6 @@ function App() {
     const filtered = trains.filter((train) =>
       train.TrainName.toLowerCase().includes(query.toLowerCase()) ||
       train.TripNo.toLowerCase().includes(query.toLowerCase())
-      
     );
     setFilteredTrains(filtered);
   };
