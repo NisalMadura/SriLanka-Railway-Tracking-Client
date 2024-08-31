@@ -10,7 +10,7 @@ function App() {
   const [filteredTrains, setFilteredTrains] = useState([]);
 
   useEffect(() => {
-    // Fetch initial data
+    
     const fetchData = async () => {
       const data = await getTrains();
       setTrains(data);
@@ -19,7 +19,7 @@ function App() {
 
     fetchData();
 
-    // Set up real-time updates via Socket.IO
+    
     socket.on('trainUpdate', (data) => {
       setTrains((prevTrains) => {
         const updatedTrains = prevTrains.map((train) =>
@@ -29,10 +29,10 @@ function App() {
       });
     });
 
-    // Auto-refresh every 10 seconds
+    
     const intervalId = setInterval(() => {
       fetchData();
-    }, 10000); 
+    }, 5000); 
 
     
     return () => {
